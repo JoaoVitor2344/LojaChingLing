@@ -18,35 +18,34 @@ namespace LojaCL
             InitializeComponent();
         }
 
-        public void carrega_dgvPri_pedido()
+        public void CarregadgvPripedi()
         {
             SqlConnection con = Conexao.obterConexao();
-            String query = "SELECT * FROM cartaovenda";
+            String query = "select * from cartaovenda";
             SqlCommand cmd = new SqlCommand(query, con);
             Conexao.obterConexao();
             cmd.CommandType = CommandType.Text;
-            //SQlDataAdapter, usado para preencher o DataTable
+            //SQLDataAdapter, usado para preencher o DataTable
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //Adicionar DataTable carregado em memória
+            //Adiciona um DataTable carregado em memória
             DataTable cartao = new DataTable();
             da.Fill(cartao);
             //Fonte de dados
-            dgvPri_pedido.DataSource = cartao;
-            //Quando for criar um controle em tempo de execução, é importante atribuir nome, e definir as principais propriedades
+            dgvPripedi.DataSource = cartao;
+            //Quando for criar um controle em tempo de execução, é importante atribuir um nome para ele, e definir as principais propriedades do controle
             DataGridViewButtonColumn fechar = new DataGridViewButtonColumn();
-            fechar.Name = "fecharConta";
+            fechar.Name = "FecharConta";
             fechar.HeaderText = "Fechar Conta";
             fechar.Text = "Fechar Conta";
             fechar.UseColumnTextForButtonValue = true;
             int columIndex = 4;
-            dgvPri_pedido.Columns.Insert(columIndex, fechar);
+            dgvPripedi.Columns.Insert(columIndex, fechar);
             Conexao.fecharConexao();
-            //Chama o evento
-            dgvPri_pedido.CellClick += dgvPri_pedido_CellClick;
-            int colunas = dgvPri_pedido.Columns.Count;
+            dgvPripedi.CellClick += dgvPripedi_CellClick;
+            int colunas = dgvPripedi.Columns.Count;
             if(colunas > 5)
             {
-                dgvPri_pedido.Columns.Remove("fecharConta");
+                dgvPripedi.Columns.Remove("FecharConta");
             }
         }
 
@@ -97,11 +96,17 @@ namespace LojaCL
             usu.Show();
         }
 
-        private void dgvPri_pedido_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void cartãoDeVendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCrudCartaoVenda ven = new FrmCrudCartaoVenda();
+            ven.Show();
+        }
+
+        private void dgvPripedi_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                if(e.ColumnIndex == dgvPri_pedido.Columns["fecharConta"].Index)
+                if(e.ColumnIndex == dgvPripedi.Columns["FecharConta"].Index)
                 {
                     if(Application.OpenForms["FrmVenda"] == null)
                     {
@@ -110,18 +115,21 @@ namespace LojaCL
                     }
                 }
             }
-            catch { }
+            catch
+            {
+
+            }
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            carrega_dgvPri_pedido();
+            CarregadgvPripedi();
         }
 
-        private void cartãoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCrudCartaoVenda car = new FrmCrudCartaoVenda();
-            car.Show();
+            FrmPedido ped = new FrmPedido();
+            ped.Show();
         }
     }
 }
