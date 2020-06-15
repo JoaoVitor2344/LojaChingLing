@@ -69,7 +69,7 @@ namespace LojaCL
                 SqlCommand cmd = new SqlCommand(query, con);
                 Conexao.obterConexao();
                 DataSet ds = new DataSet();
-                MessageBox.Show("Conectado ao Banco de Dados com Sucesso!", "Teste de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Information) ;
+                MessageBox.Show("Conectado ao Banco de Dados com Sucesso!", "Teste de Conexão", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Conexao.fecharConexao();
             }
             catch (Exception er)
@@ -110,7 +110,8 @@ namespace LojaCL
                 {
                     if(Application.OpenForms["FrmVenda"] == null)
                     {
-                        FrmVenda ven = new FrmVenda();
+                        string numero = dgvPripedi[1, e.RowIndex].Value.ToString();
+                        FrmVenda ven = new FrmVenda(numero);
                         ven.Show();
                     }
                 }

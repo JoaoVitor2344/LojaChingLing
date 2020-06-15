@@ -261,8 +261,6 @@ namespace LojaCL
             btnExcluirItem.Enabled = false;
             btnFinalizar.Enabled = false;
             //Limpar o datagrid pedido
-            dgvPedido.Rows.Clear();
-            dgvPedido.Refresh();
             FrmPrincipal obj = (FrmPrincipal)Application.OpenForms["FrmPrincipal"];
             obj.CarregadgvPripedi();
         }
